@@ -28,16 +28,24 @@ class _MyHomePageState extends State<MyHomePage> {
   String confirmedNumber = '';
 
   void onPhoneNumberChange(
-      String number, String internationalizedPhoneNumber, String isoCode) {
+    String number,
+    String internationalizedPhoneNumber,
+    String isoCode,
+    String dialCode,
+    String countryCode,
+  ) {
     print(number);
+    print('countryCode: $countryCode');
+
     setState(() {
       phoneNumber = number;
       phoneIsoCode = isoCode;
     });
   }
 
-  onValidPhoneNumber(
-      String number, String internationalizedPhoneNumber, String isoCode) {
+  onValidPhoneNumber(String number, String internationalizedPhoneNumber,
+      String isoCode, String countryCode) {
+    print('countryCode: $countryCode');
     setState(() {
       visible = true;
       confirmedNumber = internationalizedPhoneNumber;

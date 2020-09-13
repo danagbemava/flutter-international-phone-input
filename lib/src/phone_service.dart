@@ -78,11 +78,15 @@ class PhoneService {
     var jsonList = json.decode(list);
     jsonList.forEach((s) {
       Map elem = Map.from(s);
-      elements.add(Country(
+      elements.add(
+        Country(
           name: elem['en_short_name'],
           code: elem['alpha_2_code'],
           dialCode: elem['dial_code'],
-          flagUri: 'assets/flags/${elem['alpha_2_code'].toLowerCase()}.png'));
+          flagUri: 'assets/flags/${elem['alpha_2_code'].toLowerCase()}.png',
+          countryCode: elem['alpha_3_code'],
+        ),
+      );
     });
     return elements;
   }

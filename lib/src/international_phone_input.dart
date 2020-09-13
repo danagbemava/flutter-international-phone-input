@@ -11,7 +11,7 @@ import 'country.dart';
 
 class InternationalPhoneInput extends StatefulWidget {
   final void Function(String phoneNumber, String internationalizedPhoneNumber,
-      String isoCode, String dialCode) onPhoneNumberChange;
+      String isoCode, String dialCode, String countryCode) onPhoneNumberChange;
   final String initialPhoneNumber;
   final String initialSelection;
   final String errorText;
@@ -134,10 +134,12 @@ class _InternationalPhoneInputState extends State<InternationalPhoneInput> {
           if (isValid) {
             PhoneService.getNormalizedPhoneNumber(phoneText, selectedItem.code)
                 .then((number) {
-              widget.onPhoneNumberChange(phoneText, number, selectedItem.code, selectedItem.dialCode);
+              widget.onPhoneNumberChange(phoneText, number, selectedItem.code,
+                  selectedItem.dialCode, selectedItem.countryCode);
             });
           } else {
-            widget.onPhoneNumberChange('', '', selectedItem.code, selectedItem.dialCode);
+            widget.onPhoneNumberChange('', '', selectedItem.code,
+                selectedItem.dialCode, selectedItem.countryCode);
           }
         }
       });
@@ -156,14 +158,16 @@ class _InternationalPhoneInputState extends State<InternationalPhoneInput> {
             name: elem['en_short_name'],
             code: elem['alpha_2_code'],
             dialCode: elem['dial_code'],
-            flagUri: 'assets/flags/${elem['alpha_2_code'].toLowerCase()}.png');
+            flagUri: 'assets/flags/${elem['alpha_2_code'].toLowerCase()}.png',
+            countryCode: elem['alpha_3_code']);
       } else if (widget.enabledCountries.contains(elem['alpha_2_code']) ||
           widget.enabledCountries.contains(elem['dial_code'])) {
         return Country(
             name: elem['en_short_name'],
             code: elem['alpha_2_code'],
             dialCode: elem['dial_code'],
-            flagUri: 'assets/flags/${elem['alpha_2_code'].toLowerCase()}.png');
+            flagUri: 'assets/flags/${elem['alpha_2_code'].toLowerCase()}.png',
+            countryCode: elem['alpha_3_code']);
       } else {
         return null;
       }

@@ -3,9 +3,8 @@ import 'package:international_phone_input/src/country.dart';
 import 'package:international_phone_input/src/phone_service.dart';
 
 class InternationalPhoneInputText extends StatefulWidget {
-  final Function(
-          String number, String internationalizedPhoneNumber, String isoCode)
-      onValidPhoneNumber;
+  final Function(String number, String internationalizedPhoneNumber,
+      String isoCode, String countryCode) onValidPhoneNumber;
   final String hintText;
   final TextStyle hintStyle;
   final int errorMaxLines;
@@ -96,7 +95,8 @@ class _InternationalPhoneInputTextState
           if (isValid) {
             fullNumber = await PhoneService.getNormalizedPhoneNumber(
                 localNumber, country.code);
-            widget.onValidPhoneNumber(localNumber, fullNumber, country.code);
+            widget.onValidPhoneNumber(
+                localNumber, fullNumber, country.code, country.countryCode);
           }
         }
       }
